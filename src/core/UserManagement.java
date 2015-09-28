@@ -5,11 +5,17 @@ import java.util.List;
 import database.DatabaseManager;
 
 public class UserManagement {
+    DatabaseManager databaseManager;
 
     public void start() {
-        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager = new DatabaseManager();
         List<User> usersList;
         int choice = -1;
+
+        // 認証が失敗すれば、システムが終了されます。
+        if (authorize() == false) {
+            System.exit(1);
+        }
         do {
             choice = Display.showMenu();
             switch (choice) {
@@ -60,5 +66,21 @@ public class UserManagement {
             }
         } while (choice != 0);
         databaseManager.close();
+    }
+
+    public boolean authorize() {
+        int id = Display.showInputUserIDForLoginFrame();
+        String password = Display.showInputUserPasswordForLoginFrame();
+        if (databaseManager.isAdmin(id) == true) {
+            if (databaseManager.authenticate(id, password) == true) {
+                return true;
+            } else {
+                Display.showError(Display.ERROR_USER_AND_PASSWORD_MISMATCH);
+                return false;
+            }
+        } else {
+            Display.showError(Display.ERROR_USER_NOT_IN_ADMIN_GROUP);
+        }
+        return false;
     }
 }

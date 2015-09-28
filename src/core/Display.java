@@ -24,6 +24,8 @@ public class Display {
     public static final int ERROR_ON_INSERT = 13;
     public static final int ERROR_ON_DELETE = 14;
     public static final int ERROR_ON_UPDATE = 15;
+    public static final int ERROR_USER_AND_PASSWORD_MISMATCH = 16;
+    public static final int ERROR_USER_NOT_IN_ADMIN_GROUP = 17;
 
     public static final int MESSAGE_DATABASE_HAS_BEEN_CLOSED = 20;
 
@@ -33,7 +35,8 @@ public class Display {
             "1～2 の数字を入力してください ", "住所は 10 文字以下で入力してください", "1～4 の数字を入力してください ",
             "エラーが発生しました。切断できません。", "YYYY/MM/DDの形式で入力してください。", "ユーザが存在しません。",
             "DB文字列検索中にエラーが発生しました。", "DBデータ登録中にエラーが発生しました。",
-            "DBデータ削除中にエラーが発生しました。", "DBデータ更新中にエラーが発生しました。" };
+            "DBデータ削除中にエラーが発生しました。", "DBデータ更新中にエラーが発生しました。", "IDまたはパスワードが違います。",
+            "Adminグルプではありませんから、ログインできません。" };
 
     private static final String[] MESSAGE = { "切断しました。" };
 
@@ -64,10 +67,10 @@ public class Display {
     }
 
     public static int showSearchMenu() {
-        System.out.println("１．社員ID");
-        System.out.println("２．社員名");
-        System.out.println("３．性別（１：男、２：女）");
-        System.out.println("４．部署ID（１：総務部、2:営業部、3:経理部、4:資材部）");
+        System.out.println("1．社員ID");
+        System.out.println("2．社員名");
+        System.out.println("3．性別（1：男、2：女）");
+        System.out.println("4．部署ID（１：総務部、2:営業部、3:経理部、4:資材部）");
         System.out.print("検索したい列を数字で入力してください--->");
 
         int searchChoice;
@@ -120,7 +123,7 @@ public class Display {
         } while (true);
 
         do {
-            System.out.print("登録する性別（１：男,２：女）--->");
+            System.out.print("登録する性別（1：男,2：女）--->");
             int gender = Util.readInt();
             if (Validator.isCancelKey(gender) == true) {
                 return null;
@@ -171,7 +174,7 @@ public class Display {
         } while (true);
 
         do {
-            System.out.print("登録する部署ID（１：総務部、２：営業部、３：経理部、４：資材部）--->");
+            System.out.print("登録する部署ID（1：総務部、2：営業部、3：経理部、4：資材部）--->");
             int deptID = Util.readInt();
             if (Validator.isCancelKey(deptID) == true) {
                 return null;
@@ -223,6 +226,26 @@ public class Display {
             System.out.print(user.getBirthday().toString() + "\t");
             System.out.println(user.getDeptName() + "\t");
         }
+    }
+
+    public static int showInputUserIDForLoginFrame() {
+        do {
+            System.out.println("ログイン");
+            System.out.print("ID--->");
+            int id = Util.readInt();
+            if (id == Integer.MIN_VALUE) {
+                Display.showError(ERROR_INVALID_EMP_ID);
+                continue;
+            } else {
+                return id;
+            }
+        } while (true);
+
+    }
+
+    public static String showInputUserPasswordForLoginFrame() {
+        System.out.print("パスワード--->");
+        return Util.readString();
     }
 
     public static void showInsertedCount(int count) {

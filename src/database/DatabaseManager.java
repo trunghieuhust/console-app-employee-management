@@ -26,6 +26,8 @@ public class DatabaseManager {
     private static final String SQL_DELETE_EMP = "DELETE FROM EMP_TABLE WHERE EMP_ID= ?";
     private static final String SQL_CHECK_EXISTED = "SELECT COUNT(*) AS total FROM emp_table WHERE emp_id = ?";
     private static final String SQL_UPDATE_EXISTED_USER = "UPDATE EMP_TABLE SET emp_pass = ?, emp_name = ?, gender = ?, address = ?, birthday = ?, dept_id = ? WHERE emp_id = ?";
+    private static final String SQL_IS_ADMIN = "SELECT is_admin FROM EMP_TABLE WHERE emp_id = ?";
+    private static final String SQL_AUTHENTICATE = "SELECT COUNT(*) AS total FROM emp_table WHERE emp_id = ? AND emp_pass = ?";
 
     private static final String EMP_ID = "emp_id";
     private static final String EMP_PASS = "emp_pass";
@@ -36,7 +38,7 @@ public class DatabaseManager {
     private static final String DEPT_ID = "dept_id";
     private static final String DEPT_NAME = "dept_name";
     private static final String TOTAL = "total";
-
+    private static final String IS_AMIN = "is_admin";
     private Connection conn = null;
 
     public DatabaseManager() {
@@ -262,5 +264,47 @@ public class DatabaseManager {
             System.exit(1);
         }
         return affectedCount;
+    }
+
+    public boolean isAdmin(int empID) {
+        PreparedStatement preparedStatement;
+
+        try {
+            preparedStatement = conn.prepareStatement(SQL_IS_ADMIN);
+            preparedStatement.setInt(1, empID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            if (resultSet.getInt(IS_AMIN) == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            Display.showError(Display.ERROR_ON_SEARCH);
+            System.exit(1);
+        }
+
+        return false;
+    }
+
+    public boolean authenticate(int empID, String password) {
+        PreparedStatement preparedStatement;
+
+        try {
+            preparedStatement = conn.prepareStatement(SQL_AUTHENTICATE);
+            preparedStatement.setInt(1, empID);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            if (resultSet.getInt(TOTAL) == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            Display.showError(Display.ERROR_ON_SEARCH);
+            System.exit(1);
+        }
+        return false;
     }
 }

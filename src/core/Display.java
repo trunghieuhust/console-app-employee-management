@@ -44,12 +44,12 @@ public class Display {
         System.out.println("-----------------");
         System.out.println("社員管理システム");
         System.out.println("-----------------");
-        System.out.println("１．全件表示");
-        System.out.println("２．検索表示");
-        System.out.println("３．登録");
-        System.out.println("４．更新");
-        System.out.println("５．削除");
-        System.out.println("０．終了");
+        System.out.println("1．全件表示");
+        System.out.println("2．検索表示");
+        System.out.println("3．登録");
+        System.out.println("4．更新");
+        System.out.println("5．削除");
+        System.out.println("0．終了");
         System.out.print("数字で項目を選んでください--->");
 
         int menuChoice;

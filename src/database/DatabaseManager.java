@@ -46,22 +46,22 @@ public class DatabaseManager {
     }
 
     protected boolean init() {
-        if (conn == null) {
-            try {
-                Class.forName("oracle.jdbc.driver.OracleDriver");
-                conn = DriverManager.getConnection(CONNECTION_URL, USERNAME,
-                        PASSWORD);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                System.exit(1);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            conn = DriverManager.getConnection(CONNECTION_URL, USERNAME,
+                    PASSWORD);
+        } catch (ClassNotFoundException e) {
+            Display.showError(Display.ERROR_CANNOT_CONNECT_TO_DATABASE);
+            System.exit(1);
+        } catch (SQLException e) {
+            Display.showError(Display.ERROR_CANNOT_CONNECT_TO_DATABASE);
+            System.exit(1);
         }
         if (conn != null) {
             return true;
         } else {
+            Display.showError(Display.ERROR_CANNOT_CONNECT_TO_DATABASE);
+            System.exit(1);
             return false;
         }
     }

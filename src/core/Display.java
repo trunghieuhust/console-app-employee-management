@@ -26,6 +26,7 @@ public class Display {
     public static final int ERROR_ON_UPDATE = 15;
     public static final int ERROR_USER_AND_PASSWORD_MISMATCH = 16;
     public static final int ERROR_USER_NOT_IN_ADMIN_GROUP = 17;
+    public static final int ERROR_CANNOT_CONNECT_TO_DATABASE = 18;
 
     public static final int MESSAGE_DATABASE_HAS_BEEN_CLOSED = 20;
 
@@ -36,7 +37,7 @@ public class Display {
             "エラーが発生しました。切断できません。", "YYYY/MM/DDの形式で入力してください。", "ユーザが存在しません。",
             "DB文字列検索中にエラーが発生しました。", "DBデータ登録中にエラーが発生しました。",
             "DBデータ削除中にエラーが発生しました。", "DBデータ更新中にエラーが発生しました。", "IDまたはパスワードが違います。",
-            "Adminグルプではありませんから、ログインできません。" };
+            "Adminグルプではありませんから、ログインできません。", "DBに接続できません。" };
 
     private static final String[] MESSAGE = { "切断しました。" };
 
@@ -241,7 +242,11 @@ public class Display {
             System.out.print(user.getID() + "\t");
             System.out.print(user.getPass() + "\t\t");
             System.out.print(user.getName() + "\t");
-            System.out.print(user.getGender() + "\t");
+            if (user.getGender() == 1) {
+                System.out.print("男" + "\t");
+            } else {
+                System.out.print("女" + "\t");
+            }
             System.out.print(user.getAddress() + "\t");
             System.out.print(user.getBirthday().toString() + "\t");
             System.out.println(user.getDeptName() + "\t");

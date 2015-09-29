@@ -44,7 +44,11 @@ public class UserManagement {
                     continue;
                 }
                 if (databaseManager.isUserExisted(updateEmpID) == true) {
+                    // チェックしたから、ユーザが存在しているので、このクエリは必ず列が戻ります。
+                    User originalUser = databaseManager.searchByID(updateEmpID)
+                            .get(0);
                     User updatedUser = Display.showInputUserFrame();
+                    insertUnchageField(originalUser, updatedUser);
                     updatedUser.setID(updateEmpID);
                     int updatedCount = databaseManager
                             .updateExistedEmployee(updatedUser);
@@ -68,7 +72,7 @@ public class UserManagement {
         databaseManager.close();
     }
 
-    public boolean authorize() {
+    private boolean authorize() {
         int id = Display.showInputUserIDForLoginFrame();
         String password = Display.showInputUserPasswordForLoginFrame();
         if (databaseManager.isAdmin(id) == true) {
@@ -82,5 +86,34 @@ public class UserManagement {
             Display.showError(Display.ERROR_USER_NOT_IN_ADMIN_GROUP);
         }
         return false;
+    }
+
+    // TODO ko can nhap lai khi update, enter to skip
+    private void insertUnchageField(User originalUser, User updatedUser) {
+        if (updatedUser.getAddress() == null
+                || updatedUser.getAddress().length() == 0) {
+            updatedUser.setAddress(originalUser.getAddress());
+        }
+        if (updatedUser.getBirthday() == null) {
+            updatedUser.setBirthday(originalUser.getBirthday());
+        }
+        if (updatedUser.getDeptID() == 0) {
+            updatedUser.setDeptID(originalUser.getDeptID());
+        }
+        if (updatedUser.getDeptName() == null
+                || updatedUser.getDeptName().length() == 0) {
+            updatedUser.setDeptName(originalUser.getDeptName());
+        }
+        if (updatedUser.getGender() == 0) {
+            updatedUser.setGender(originalUser.getGender());
+        }
+        if (updatedUser.getName() == null
+                || updatedUser.getName().length() == 0) {
+            updatedUser.setName(originalUser.getName());
+        }
+        if (updatedUser.getPass() == null
+                || updatedUser.getPass().length() == 0) {
+            updatedUser.setPass(originalUser.getPass());
+        }
     }
 }

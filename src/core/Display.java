@@ -125,6 +125,11 @@ public class Display {
         do {
             System.out.print("登録する性別（1：男,2：女）--->");
             int gender = Util.readInt();
+            // 更新したくない場合、０を代入する。
+            if (gender == Integer.MIN_VALUE) {
+                user.setGender(0);
+                break;
+            }
             if (Validator.isCancelKey(gender) == true) {
                 return null;
             }
@@ -139,6 +144,11 @@ public class Display {
         do {
             System.out.print("登録する住所--->");
             String address = Util.readString();
+            // 更新したくない場合
+            if (address.length() == 0) {
+                user.setAddress(address);
+                break;
+            }
             if (Validator.isCancelKey(address) == true) {
                 return null;
             }
@@ -153,6 +163,11 @@ public class Display {
         do {
             System.out.print("登録する誕生日（YYYY/MM/DDの形式で入力してください）--->");
             String date = Util.readString();
+            // 更新したくない場合
+            if (date.length() == 0) {
+                user.setBirthday(null);
+                break;
+            }
             if (Validator.isCancelKey(date) == true) {
                 return null;
             }
@@ -175,7 +190,12 @@ public class Display {
 
         do {
             System.out.print("登録する部署ID（1：総務部、2：営業部、3：経理部、4：資材部）--->");
+            // 更新したくない場合
             int deptID = Util.readInt();
+            if (deptID == Integer.MIN_VALUE) {
+                user.setDeptID(0);
+                break;
+            }
             if (Validator.isCancelKey(deptID) == true) {
                 return null;
             }

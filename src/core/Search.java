@@ -15,7 +15,9 @@ public class Search {
         List<User> usersList = new ArrayList<User>();
         searchChoice = Display.showSearchMenu();
         String keyword = Display.showInputSearchFrame();
-
+        if (keyword.equals("0")) {
+            return null;
+        }
         switch (searchChoice) {
         case 1:
             do {

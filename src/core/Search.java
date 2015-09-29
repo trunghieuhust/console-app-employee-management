@@ -13,8 +13,8 @@ public class Search {
     public static List<User> search() {
         int searchChoice = -1;
         List<User> usersList = new ArrayList<User>();
-        searchChoice = Display.showSearchMenu();
-        String keyword = Display.showInputSearchFrame();
+        searchChoice = View.showSearchMenu();
+        String keyword = View.showInputSearchFrame();
         if (keyword.equals("0")) {
             return null;
         }
@@ -26,7 +26,7 @@ public class Search {
                     usersList = databaseManager.searchByID(ID);
                     break;
                 } else {
-                    Display.showError(Display.ERROR_INVALID_EMP_ID);
+                    View.showError(View.ERROR_INVALID_EMP_ID);
                 }
             } while (true);
             break;
@@ -36,7 +36,7 @@ public class Search {
                     usersList = databaseManager.searchByName(keyword);
                     break;
                 } else {
-                    Display.showError(Display.ERROR_NAME_IS_TOO_LONG);
+                    View.showError(View.ERROR_NAME_IS_TOO_LONG);
                 }
             } while (true);
             break;
@@ -47,7 +47,7 @@ public class Search {
                     usersList = databaseManager.searchByGender(gender);
                     break;
                 } else {
-                    Display.showError(Display.ERROR_INVALID_GENDER);
+                    View.showError(View.ERROR_INVALID_GENDER);
                 }
 
             } while (true);
@@ -59,7 +59,7 @@ public class Search {
                     usersList = databaseManager.searchByDepartmentID(deptID);
                     break;
                 } else {
-                    Display.showError(Display.ERROR_INVALID_DEPARTMENT);
+                    View.showError(View.ERROR_INVALID_DEPARTMENT);
                 }
             } while (true);
             break;

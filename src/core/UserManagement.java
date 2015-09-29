@@ -17,29 +17,29 @@ public class UserManagement {
             System.exit(1);
         }
         do {
-            choice = Display.showMenu();
+            choice = View.showMenu();
             switch (choice) {
             case 1:
                 usersList = databaseManager.getAllUser();
-                Display.showUsersList(usersList);
+                View.showUsersList(usersList);
                 break;
             case 2:
                 usersList = Search.search();
                 if (usersList == null) {
                     continue;
                 }
-                Display.showUsersList(usersList);
+                View.showUsersList(usersList);
                 break;
             case 3:
-                User newUser = Display.showInputUserFrame();
+                User newUser = View.showInputUserFrame();
                 if (newUser == null) {
                     continue;
                 }
                 int insertedCount = databaseManager.insertNewEmployee(newUser);
-                Display.showInsertedCount(insertedCount);
+                View.showInsertedCount(insertedCount);
                 break;
             case 4:
-                int updateEmpID = Display.showInputIDForUpdateFrame();
+                int updateEmpID = View.showInputIDForUpdateFrame();
                 if (updateEmpID == 0) {
                     continue;
                 }
@@ -47,23 +47,23 @@ public class UserManagement {
                     // チェックしたから、ユーザが存在しているので、このクエリは必ず列が戻ります。
                     User originalUser = databaseManager.searchByID(updateEmpID)
                             .get(0);
-                    User updatedUser = Display.showInputUserFrame();
+                    User updatedUser = View.showInputUserFrame();
                     insertUnchageField(originalUser, updatedUser);
                     updatedUser.setID(updateEmpID);
                     int updatedCount = databaseManager
                             .updateExistedEmployee(updatedUser);
-                    Display.showUpdatedCount(updatedCount);
+                    View.showUpdatedCount(updatedCount);
                 } else {
-                    Display.showError(Display.ERROR_USER_NOT_EXIST);
+                    View.showError(View.ERROR_USER_NOT_EXIST);
                 }
                 break;
             case 5:
-                int deleteEmpID = Display.showInputIDForDeleteFrame();
+                int deleteEmpID = View.showInputIDForDeleteFrame();
                 if (deleteEmpID == 0) {
                     continue;
                 }
                 int deletedCount = databaseManager.deleteEmployee(deleteEmpID);
-                Display.showDeletedCount(deletedCount);
+                View.showDeletedCount(deletedCount);
                 break;
             default:
                 break;
@@ -73,17 +73,17 @@ public class UserManagement {
     }
 
     private boolean authorize() {
-        int id = Display.showInputUserIDForLoginFrame();
-        String password = Display.showInputUserPasswordForLoginFrame();
+        int id = View.showInputUserIDForLoginFrame();
+        String password = View.showInputUserPasswordForLoginFrame();
         if (databaseManager.isAdmin(id) == true) {
             if (databaseManager.authenticate(id, password) == true) {
                 return true;
             } else {
-                Display.showError(Display.ERROR_USER_AND_PASSWORD_MISMATCH);
+                View.showError(View.ERROR_USER_AND_PASSWORD_MISMATCH);
                 return false;
             }
         } else {
-            Display.showError(Display.ERROR_USER_NOT_IN_ADMIN_GROUP);
+            View.showError(View.ERROR_USER_NOT_IN_ADMIN_GROUP);
         }
         return false;
     }

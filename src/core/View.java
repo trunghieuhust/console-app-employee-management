@@ -7,7 +7,7 @@ import java.util.List;
 
 import util.Util;
 
-public class Display {
+public class View {
     public static final int ERROR_UNKOWN_ERROR = 0;
     public static final int ERROR_INVALID_MENU_OPTION = 1;
     public static final int ERROR_INVALID_SEARCH_OPTION = 2;
@@ -259,7 +259,7 @@ public class Display {
             System.out.print("ID--->");
             int id = Util.readInt();
             if (id == Integer.MIN_VALUE) {
-                Display.showError(ERROR_INVALID_EMP_ID);
+                View.showError(ERROR_INVALID_EMP_ID);
                 continue;
             } else {
                 return id;

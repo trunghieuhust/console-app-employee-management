@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.Display;
+import core.View;
 import core.User;
 
 public class DatabaseManager {
@@ -51,16 +51,16 @@ public class DatabaseManager {
             conn = DriverManager.getConnection(CONNECTION_URL, USERNAME,
                     PASSWORD);
         } catch (ClassNotFoundException e) {
-            Display.showError(Display.ERROR_CANNOT_CONNECT_TO_DATABASE);
+            View.showError(View.ERROR_CANNOT_CONNECT_TO_DATABASE);
             System.exit(1);
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_CANNOT_CONNECT_TO_DATABASE);
+            View.showError(View.ERROR_CANNOT_CONNECT_TO_DATABASE);
             System.exit(1);
         }
         if (conn != null) {
             return true;
         } else {
-            Display.showError(Display.ERROR_CANNOT_CONNECT_TO_DATABASE);
+            View.showError(View.ERROR_CANNOT_CONNECT_TO_DATABASE);
             System.exit(1);
             return false;
         }
@@ -75,7 +75,7 @@ public class DatabaseManager {
                 System.exit(1);
             }
         } else {
-            Display.showError(Display.ERROR_CANNOT_CLOSE_DATABASE);
+            View.showError(View.ERROR_CANNOT_CLOSE_DATABASE);
             System.exit(1);
         }
     }
@@ -91,7 +91,7 @@ public class DatabaseManager {
             statement.close();
 
         } catch (SQLException e1) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
         return usersList;
@@ -109,7 +109,7 @@ public class DatabaseManager {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
         return usersList;
@@ -128,7 +128,7 @@ public class DatabaseManager {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
         return usersList;
@@ -146,7 +146,7 @@ public class DatabaseManager {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
         return usersList;
@@ -164,7 +164,7 @@ public class DatabaseManager {
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
         return usersList;
@@ -226,7 +226,7 @@ public class DatabaseManager {
             preparedStatement.setInt(7, user.getID());
             affectedCount = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_UPDATE);
+            View.showError(View.ERROR_ON_UPDATE);
             System.exit(1);
         }
         return affectedCount;
@@ -246,7 +246,7 @@ public class DatabaseManager {
             preparedStatement.setInt(6, user.getDeptID());
             affectedCount = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_INSERT);
+            View.showError(View.ERROR_ON_INSERT);
             System.exit(1);
         }
         return affectedCount;
@@ -260,7 +260,7 @@ public class DatabaseManager {
             preparedStatement.setInt(1, empID);
             affectedCount = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_DELETE);
+            View.showError(View.ERROR_ON_DELETE);
             System.exit(1);
         }
         return affectedCount;
@@ -280,7 +280,7 @@ public class DatabaseManager {
                 return false;
             }
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
 
@@ -302,7 +302,7 @@ public class DatabaseManager {
                 return false;
             }
         } catch (SQLException e) {
-            Display.showError(Display.ERROR_ON_SEARCH);
+            View.showError(View.ERROR_ON_SEARCH);
             System.exit(1);
         }
         return false;
